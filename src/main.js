@@ -1,5 +1,6 @@
 import { initHome } from './pages/home.js'
-
+import { initGlobal } from './global.js'
+import { initContact } from './pages/contact.js'
 ;(() => {
   // =============================================
   // GSAP SETUP
@@ -39,6 +40,9 @@ import { initHome } from './pages/home.js'
     if (!page) return
 
     if (page.classList.contains('is-home')) initHome()
+    if (page.classList.contains('is-contact')) initContact()
+
+    initGlobal()
   }
 
   // =============================================
