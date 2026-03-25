@@ -1,5 +1,3 @@
-// Shared utility functions
-// Example: export function debounce(fn, delay = 200) { ... }
 const splitConfig = {
   lines: { duration: 0.8, stagger: 0.08 },
   words: { duration: 0.6, stagger: 0.06 },

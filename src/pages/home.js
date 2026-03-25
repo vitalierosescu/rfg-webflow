@@ -179,6 +179,15 @@ const initHeroParallax = () => {
         0
       )
 
+      tl.to(
+        '.home--hero_img',
+        {
+          scale: '1.15',
+          ease: 'none',
+        },
+        0
+      )
+
       // gsap.set(hero, { filter: 'brightness(100%)' })
     }
 

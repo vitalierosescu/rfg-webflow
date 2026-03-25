@@ -1,3 +1,4 @@
+import gsap from 'gsap'
 import { initHome } from './pages/home.js'
 import { initGlobal } from './global.js'
 import { initContact } from './pages/contact.js'
@@ -5,7 +6,8 @@ import { initContact } from './pages/contact.js'
   // =============================================
   // GSAP SETUP
   // =============================================
-  gsap.registerPlugin(ScrollTrigger)
+  // Dev fallback: use npm gsap if CDN isn't present (Webflow preview always provides CDN)
+  if (!window.gsap) window.gsap = gsap
 
   // =============================================
   // CONFIG

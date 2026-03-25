@@ -4,13 +4,18 @@ function initTextAnimations() {
   document.querySelectorAll('[data-split]').forEach((el) => {
     const isHero = el.closest('[data-hero]')
 
-    splitReveal(el, isHero ? {} : {
-      scrollTrigger: {
-        trigger: el,
-        start: 'clamp(top 90%)',
-        once: true,
-      },
-    })
+    splitReveal(
+      el,
+      isHero
+        ? {}
+        : {
+            scrollTrigger: {
+              trigger: el,
+              start: 'clamp(top 90%)',
+              once: true,
+            },
+          }
+    )
   })
 }
 
@@ -109,7 +114,23 @@ function initMarqueeScrollDirection() {
   })
 }
 
+function initNavBlend() {
+  const trigger = document.querySelector('[data-hero-trigger]')
+  const nav = document.querySelector('.bold-nav-full')
+  if (!trigger || !nav) return
+
+  ScrollTrigger.create({
+    trigger,
+    start: 'top top',
+    end: 'bottom top',
+    onEnter: () => nav.classList.add('is-blend'),
+    onEnterBack: () => nav.classList.add('is-blend'),
+    onLeaveBack: () => nav.classList.remove('is-blend'),
+  })
+}
+
 export function initGlobal() {
   initTextAnimations()
   initMarqueeScrollDirection()
+  initNavBlend()
 }

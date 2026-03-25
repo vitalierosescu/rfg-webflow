@@ -35,9 +35,10 @@ export default defineConfig(({ command }) => {
           compact: false,
           globals: {
             jquery: '$',
+            gsap: 'gsap',
           },
         },
-        external: ['jquery'],
+        external: ['jquery', 'gsap'],
       },
     },
   }
