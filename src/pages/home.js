@@ -196,7 +196,7 @@ const initHeroParallax = () => {
   // Remove animations on tablet and down
   mm.add('(max-width: 991px)', () => {
     gsap.set(hero, { clearProps: 'all' })
-    refreshScroll()
+    ScrollTrigger.refresh()
   })
 }
 
