@@ -1,4 +1,5 @@
 import gsap from 'gsap'
+import { BREAKPOINTS } from './utils/breakpoints.js'
 import { initHome } from './pages/home.js'
 import { initGlobal } from './global.js'
 import { initContact } from './pages/contact.js'
@@ -13,11 +14,7 @@ import { initContact } from './pages/contact.js'
   // CONFIG
   // =============================================
   const CONFIG = {
-    breakpoints: {
-      tablet: 991,
-      mobileLandscape: 767,
-      mobile: 478,
-    },
+    breakpoints: BREAKPOINTS,
     selectors: {
       pageWrapper: '.page-wrap',
     },

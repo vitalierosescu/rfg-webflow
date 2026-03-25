@@ -1,3 +1,5 @@
+import { MQ } from '../utils/breakpoints.js'
+
 const paths = document.querySelectorAll('.home--hero_svg path')
 gsap.set(paths, { autoAlpha: 0, y: '1rem' })
 
@@ -146,7 +148,7 @@ const initHeroParallax = () => {
   const hero = document.querySelector('[data-hero-target]')
   if (!hero) return
   const mm = gsap.matchMedia()
-  mm.add('(min-width: 992px)', () => {
+  mm.add(MQ.tabletUp, () => {
     const animateHero = () => {
       const tl = gsap.timeline({
         defaults: {
@@ -194,8 +196,46 @@ const initHeroParallax = () => {
     animateHero()
   })
   // Remove animations on tablet and down
-  mm.add('(max-width: 991px)', () => {
+  mm.add(MQ.tabletDown, () => {
     gsap.set(hero, { clearProps: 'all' })
+    ScrollTrigger.refresh()
+  })
+}
+
+const initHomeProjects = () => {
+  const target = document.querySelector('.home--projects_title-inner')
+  const trigger = document.querySelector('.home--projects_list-wrap')
+  if (!trigger) return
+  const mm = gsap.matchMedia()
+  mm.add(MQ.tabletUp, () => {
+    const animateHero = () => {
+      const tl = gsap.timeline({
+        defaults: {
+          ease: 'none',
+        },
+        scrollTrigger: {
+          trigger: trigger,
+          start: 'clamp(top 80%)',
+          end: 'top top',
+          scrub: true,
+        },
+      })
+
+      tl.to(
+        target,
+        {
+          scale: 0.6,
+          ease: 'none',
+        },
+        0
+      )
+    }
+
+    animateHero()
+  })
+  // Remove animations on tablet and down
+  mm.add(MQ.tabletDown, () => {
+    gsap.set(target, { clearProps: 'all' })
     ScrollTrigger.refresh()
   })
 }
@@ -205,4 +245,5 @@ export function initHome() {
   initLogoRevealLoader()
   initOutroAnimation()
   initHeroParallax()
+  initHomeProjects()
 }
