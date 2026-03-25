@@ -70,6 +70,10 @@ function initMarqueeScrollDirection() {
     animation.timeScale(marqueeDirectionAttr) // Set correct direction
     animation.play() // Start animation immediately
 
+    // Pause on hover, resume on leave
+    marquee.addEventListener('mouseenter', () => animation.pause())
+    marquee.addEventListener('mouseleave', () => animation.play())
+
     // Set initial marquee status
     marquee.setAttribute('data-marquee-status', 'normal')
 

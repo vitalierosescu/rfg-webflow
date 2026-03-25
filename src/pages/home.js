@@ -20,6 +20,21 @@ function initLogoRevealLoader() {
   const wrap = document.querySelector('[data-load-wrap]')
   if (!wrap) return
 
+  // Returning visitor: quick loader fade out
+  if (sessionStorage.getItem('rfg-visited')) {
+    gsap.to(wrap, {
+      autoAlpha: 0,
+      duration: 0.8,
+      ease: 'power1.out',
+      onComplete: () => {
+        gsap.set(wrap, { display: 'none' })
+        animateHeroSvg()
+      },
+    })
+    return
+  }
+  sessionStorage.setItem('rfg-visited', '1')
+
   const container = wrap.querySelector('[data-load-container]')
   const bg = wrap.querySelector('[data-load-bg]')
   const progressBar = wrap.querySelector('[data-load-progress]')
