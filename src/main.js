@@ -2,7 +2,7 @@ import gsap from 'gsap'
 import { BREAKPOINTS } from './utils/breakpoints.js'
 import { initHome } from './pages/home.js'
 import { initGlobal } from './global.js'
-import { initContact } from './pages/contact.js'
+import { initNav } from './nav.js'
 ;(() => {
   // =============================================
   // GSAP SETUP
@@ -39,9 +39,9 @@ import { initContact } from './pages/contact.js'
     if (!page) return
 
     if (page.classList.contains('is-home')) initHome()
-    if (page.classList.contains('is-contact')) initContact()
 
     initGlobal()
+    initNav()
   }
 
   // =============================================

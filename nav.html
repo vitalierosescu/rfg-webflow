@@ -1,0 +1,167 @@
+<!-- CSS Starter -->
+<style>
+  :root {
+    --nav-ease: cubic-bezier(.7, 0, .3, 1);
+    --nav-ease-heavy: cubic-bezier(.9, 0, .1, 1);
+    --nav-duration-fast: 0.3s;
+    --nav-duration: 0.5s;
+    --nav-duration-slow: 1s;
+  }
+
+  /* --------------------------------- Hamburger --------------------------------- */
+
+  .bold-nav-full__hamburger .bold-nav-full__hamburger-bar {
+    transform: translate(0, 0) rotate(0.001deg);
+    transition: transform var(--nav-duration) var(--nav-ease), background-color var(--nav-duration-fast) var(--nav-ease);
+  }
+
+  .bold-nav-full__hamburger .bold-nav-full__hamburger-bar:nth-child(1) {
+    transform: translate(0, -.45em) scale(1, 1) rotate(0.001deg);
+  }
+
+  .bold-nav-full__hamburger .bold-nav-full__hamburger-bar:nth-child(3) {
+    transform: translate(0, .45em) scale(1, 1) rotate(0.001deg);
+  }
+
+  /* Hamburger - Hover */
+  .bold-nav-full__hamburger:hover .bold-nav-full__hamburger-bar:nth-child(1) {
+    transform: translate(0, -.45em) scale(.5, 1) rotate(0.001deg);
+  }
+
+  .bold-nav-full__hamburger:hover .bold-nav-full__hamburger-bar:nth-child(3) {
+    transform: translate(0, .45em) scale(.5, 1) rotate(0.001deg);
+  }
+
+  /* Hamburger (Navigation Open) */
+
+  .bold-nav-full[data-navigation-status="active"] .bold-nav-full__hamburger-bar:nth-child(1) {
+    transform: translate(0, 0) rotate(45deg) scale(1, 1);
+  }
+
+  .bold-nav-full[data-navigation-status="active"] .bold-nav-full__hamburger-bar:nth-child(2) {
+    transform: translate(-150%, 0) rotate(0.001deg) scale(1, 1);
+  }
+
+  .bold-nav-full[data-navigation-status="active"] .bold-nav-full__hamburger-bar:nth-child(3) {
+    transform: translate(0, 0) rotate(-45deg) scale(1, 1);
+  }
+
+  /* Hamburger - Hover (Navigation Open) */
+
+  .bold-nav-full[data-navigation-status="active"] .bold-nav-full__hamburger:hover .bold-nav-full__hamburger-bar:nth-child(1) {
+    transform: translate(0, 0) rotate(45deg) scale(.7, 1);
+  }
+
+  .bold-nav-full[data-navigation-status="active"] .bold-nav-full__hamburger:hover .bold-nav-full__hamburger-bar:nth-child(3) {
+    transform: translate(0, 0) rotate(-45deg) scale(.7, 1);
+  }
+
+  /* --------------------------------- Nav Colors (Navigation Open) --------------------------------- */
+
+  .bold-nav-full {
+    transition: color var(--nav-duration-fast) var(--nav-ease);
+  }
+
+  .bold-nav-full[data-navigation-status="active"] {
+    color: white !important;
+  }
+
+  .bold-nav-full__logo {
+    transition: opacity var(--nav-duration-fast) var(--nav-ease);
+  }
+
+  @media (min-width: 768px) {
+    .bold-nav-full[data-navigation-status="active"] .bold-nav-full__logo {
+      opacity: 0;
+    }
+  }
+
+  .bold-nav-full[data-navigation-status="active"] .bold-nav-full__hamburger-bar {
+    background-color: white !important;
+  }
+
+  /* --------------------------------- Tile --------------------------------- */
+
+  .bold-nav-full__tile {
+    transition: clip-path var(--nav-duration-slow) var(--nav-ease-heavy);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+  }
+
+  /* Tile (Navigation Open) */
+
+  .bold-nav-full[data-navigation-status="active"] .bold-nav-full__tile {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+
+  /* --------------------------------- Tile - Links --------------------------------- */
+
+  .bold-nav-full__link {
+    transform: translateY(100%) rotate(5deg);
+    transition: transform 0.4s var(--nav-ease);
+  }
+
+  .bold-nav-full__li:nth-child(1) .bold-nav-full__link { transition-delay: 0.2s; }
+  .bold-nav-full__li:nth-child(2) .bold-nav-full__link { transition-delay: 0.15s; }
+  .bold-nav-full__li:nth-child(3) .bold-nav-full__link { transition-delay: 0.1s; }
+  .bold-nav-full__li:nth-child(4) .bold-nav-full__link { transition-delay: 0.05s; }
+  .bold-nav-full__li:nth-child(5) .bold-nav-full__link { transition-delay: 0s; }
+
+  /* Tile - Links (Navigation Open) */
+
+  .bold-nav-full[data-navigation-status="active"] .bold-nav-full__link {
+    transform: translateY(0%) rotate(0.001deg);
+    transition-delay: var(--nav-duration-fast);
+  }
+
+  .bold-nav-full[data-navigation-status="active"] .bold-nav-full__li:nth-child(1) .bold-nav-full__link { transition-delay: 0.3s; }
+  .bold-nav-full[data-navigation-status="active"] .bold-nav-full__li:nth-child(2) .bold-nav-full__link { transition-delay: 0.35s; }
+  .bold-nav-full[data-navigation-status="active"] .bold-nav-full__li:nth-child(3) .bold-nav-full__link { transition-delay: 0.4s; }
+  .bold-nav-full[data-navigation-status="active"] .bold-nav-full__li:nth-child(4) .bold-nav-full__link { transition-delay: 0.45s; }
+  .bold-nav-full[data-navigation-status="active"] .bold-nav-full__li:nth-child(5) .bold-nav-full__link { transition-delay: 0.5s; }
+
+  /* --------------------------------- Tile - Links (Hover) --------------------------------- */
+
+  .bold-nav-full__li {
+    transition: opacity var(--nav-duration) var(--nav-ease);
+  }
+
+  .bold-nav-full__ul:has(.bold-nav-full__li:hover) .bold-nav-full__li {
+    opacity: 0.15;
+  }
+
+  .bold-nav-full__ul:has(.bold-nav-full__li:hover) .bold-nav-full__li:hover {
+    opacity: 1;
+  }
+
+  .bold-nav-full__link .bold-nav-full__link-text {
+    transition: transform var(--nav-duration-fast) var(--nav-ease);
+    transform: translateY(0%) rotate(0.001deg);
+  }
+
+  .bold-nav-full__link:hover .bold-nav-full__link-text {
+    transform: translateY(-100%) rotate(0.001deg);
+  }
+
+  /* --------------------------------- Nav Brand Images --------------------------------- */
+
+  .nav_img-item {
+    opacity: 0;
+    transition: opacity 0.15s var(--nav-ease);
+  }
+
+  .nav_img-item:first-child {
+    opacity: 1;
+  }
+
+  .nav_content:has(.nav-brands_item:hover) .nav_img-item:first-child {
+    opacity: 0;
+  }
+
+  .nav_content:has(.nav-brands_item:nth-child(1):hover) .nav_img-item:nth-child(1) { opacity: 1; }
+  .nav_content:has(.nav-brands_item:nth-child(2):hover) .nav_img-item:nth-child(2) { opacity: 1; }
+  .nav_content:has(.nav-brands_item:nth-child(3):hover) .nav_img-item:nth-child(3) { opacity: 1; }
+  .nav_content:has(.nav-brands_item:nth-child(4):hover) .nav_img-item:nth-child(4) { opacity: 1; }
+  .nav_content:has(.nav-brands_item:nth-child(5):hover) .nav_img-item:nth-child(5) { opacity: 1; }
+  .nav_content:has(.nav-brands_item:nth-child(6):hover) .nav_img-item:nth-child(6) { opacity: 1; }
+  .nav_content:has(.nav-brands_item:nth-child(7):hover) .nav_img-item:nth-child(7) { opacity: 1; }
+</style>

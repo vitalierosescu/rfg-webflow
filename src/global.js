@@ -114,23 +114,61 @@ function initMarqueeScrollDirection() {
   })
 }
 
-function initNavBlend() {
-  const trigger = document.querySelector('[data-hero-trigger]')
-  const nav = document.querySelector('.bold-nav-full')
-  if (!trigger || !nav) return
+function initImgSwipe() {
+  document.querySelectorAll('.img-swipe').forEach((swipe) => {
+    const trigger = swipe.parentElement
 
-  ScrollTrigger.create({
-    trigger,
-    start: 'top top',
-    end: 'bottom top',
-    onEnter: () => nav.classList.add('is-blend'),
-    onEnterBack: () => nav.classList.add('is-blend'),
-    onLeaveBack: () => nav.classList.remove('is-blend'),
+    gsap.to(swipe, {
+      scaleX: 0,
+      ease: 'power3.inOut',
+      duration: 1.8,
+      scrollTrigger: {
+        trigger: trigger,
+        start: 'top 90%',
+        toggleActions: 'play none none none',
+      },
+    })
+  })
+}
+
+const initForm = () => {
+  if (!document.querySelector('.form_input')) return
+
+  document.querySelectorAll('.form_input').forEach((field) => {
+    const label = field.closest('.form-field-group')?.querySelector('.form_label')
+    const isTextarea = field.closest('.form-field-group')?.querySelector('.form_input.is-text-area')
+
+    // On focus in
+    field.addEventListener('focusin', () => {
+      if (label) label.classList.remove('is-large')
+      if (isTextarea) field.classList.add('is-active')
+    })
+
+    // On focus out
+    field.addEventListener('focusout', () => {
+      const isEmpty = field.value.trim().length === 0
+      if (isEmpty && label) label.classList.add('is-large')
+      if (isTextarea && isEmpty) field.classList.remove('is-active')
+    })
+
+    // On load
+    if (field.value.trim().length > 0) {
+      if (label) label.classList.remove('is-large')
+      if (isTextarea) field.classList.add('is-active')
+    }
+  })
+}
+
+function initCaseNumbers() {
+  document.querySelectorAll('.case_item_number').forEach((el, i) => {
+    el.textContent = String(i + 1).padStart(2, '0')
   })
 }
 
 export function initGlobal() {
+  initCaseNumbers()
   initTextAnimations()
   initMarqueeScrollDirection()
-  initNavBlend()
+  initImgSwipe()
+  initForm()
 }

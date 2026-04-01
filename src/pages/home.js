@@ -22,36 +22,23 @@ function initLogoRevealLoader() {
   const wrap = document.querySelector('[data-load-wrap]')
   if (!wrap) return
 
-  // Returning visitor: quick loader fade out
-  if (sessionStorage.getItem('rfg-visited')) {
-    gsap.to(wrap, {
-      autoAlpha: 0,
-      duration: 0.8,
-      ease: 'power1.out',
-      onComplete: () => {
-        gsap.set(wrap, { display: 'none' })
-        animateHeroSvg()
-      },
-    })
-    return
-  }
+  const isReturning = sessionStorage.getItem('rfg-visited')
   sessionStorage.setItem('rfg-visited', '1')
 
   const container = wrap.querySelector('[data-load-container]')
   const bg = wrap.querySelector('[data-load-bg]')
   const progressBar = wrap.querySelector('[data-load-progress]')
   const logo = wrap.querySelector('[data-load-logo]')
-  const textElements = Array.from(wrap.querySelectorAll('[data-load-text]'))
 
-  // Reset targets that are * not * split text targets
-  const resetTargets = Array.from(wrap.querySelectorAll('[data-load-reset]:not([data-load-text])'))
+  // Reset targets
+  const resetTargets = Array.from(wrap.querySelectorAll('[data-load-reset]'))
 
   // Main loader timeline
   const loadTimeline = gsap
     .timeline({
       defaults: {
         ease: 'loader',
-        duration: 3,
+        duration: 2,
       },
     })
     .set(wrap, { display: 'block' })
@@ -64,84 +51,11 @@ function initLogoRevealLoader() {
     .add(() => animateHeroSvg(), '-=0.6')
     .set(wrap, { display: 'none' })
 
-  // If there are items to hide FOUC for, reset them at the start
+  if (isReturning) loadTimeline.timeScale(1.5)
+
   if (resetTargets.length) {
     loadTimeline.set(resetTargets, { autoAlpha: 1 }, 0)
   }
-
-  // If there's text items, split them, and add to load timeline
-  if (textElements.length >= 2) {
-    const firstWord = new SplitText(textElements[0], { type: 'lines,chars', mask: 'lines' })
-    const secondWord = new SplitText(textElements[1], { type: 'lines,chars', mask: 'lines' })
-
-    // Set initial states of the text elements and letters
-    gsap.set([firstWord.chars, secondWord.chars], { autoAlpha: 0, yPercent: 125 })
-    gsap.set(textElements, { autoAlpha: 1 })
-
-    // first text in
-    loadTimeline.to(
-      firstWord.chars,
-      {
-        autoAlpha: 1,
-        yPercent: 0,
-        duration: 0.6,
-        stagger: { each: 0.02 },
-      },
-      0
-    )
-
-    // first text out while second text in
-    loadTimeline.to(
-      firstWord.chars,
-      {
-        autoAlpha: 0,
-        yPercent: -125,
-        duration: 0.4,
-        stagger: { each: 0.02 },
-      },
-      '>+=0.4'
-    )
-
-    loadTimeline.to(
-      secondWord.chars,
-      {
-        autoAlpha: 1,
-        yPercent: 0,
-        duration: 0.6,
-        stagger: { each: 0.02 },
-      },
-      '<'
-    )
-
-    // second text out
-    loadTimeline.to(
-      secondWord.chars,
-      {
-        autoAlpha: 0,
-        yPercent: -125,
-        duration: 0.4,
-        stagger: { each: 0.02 },
-      },
-      'hideContent-=0.5'
-    )
-  }
-}
-
-function initOutroAnimation() {
-  const trigger = document.querySelector('.outro_img-wrap')
-  if (!trigger) return
-  const swipe = trigger.querySelector('.img-swipe')
-
-  gsap.to(swipe, {
-    scaleX: 0,
-    ease: 'power3.inOut',
-    duration: 1.8,
-    scrollTrigger: {
-      trigger: trigger,
-      start: 'top 95%',
-      toggleActions: 'play none none none',
-    },
-  })
 }
 
 const initHeroParallax = () => {
@@ -243,7 +157,6 @@ const initHomeProjects = () => {
 export function initHome() {
   // Home page logic
   initLogoRevealLoader()
-  initOutroAnimation()
   initHeroParallax()
   initHomeProjects()
 }
