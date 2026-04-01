@@ -4,9 +4,18 @@ function initNav() {
   const navStatusEl = document.querySelector('[data-navigation-status]')
   if (!navStatusEl) return
 
+  const trigger = document.querySelector('[data-hero-trigger]')
+  const alwaysBlend = trigger?.getAttribute('data-hero-trigger') === 'always'
+
+  let blendActive = false
+
   function setNav(active) {
     navStatusEl.setAttribute('data-navigation-status', active ? 'active' : 'not-active')
-    if (active) navStatusEl.classList.remove('is-blend')
+    if (active) {
+      navStatusEl.classList.remove('is-blend')
+    } else if (blendActive) {
+      navStatusEl.classList.add('is-blend')
+    }
   }
 
   // Toggle Navigation
@@ -30,16 +39,20 @@ function initNav() {
   })
 
   // Nav Blend
-  const trigger = document.querySelector('[data-hero-trigger]')
   if (trigger) {
-    ScrollTrigger.create({
-      trigger,
-      start: 'top top',
-      end: 'bottom top',
-      onEnter: () => navStatusEl.classList.add('is-blend'),
-      onEnterBack: () => navStatusEl.classList.add('is-blend'),
-      onLeaveBack: () => navStatusEl.classList.remove('is-blend'),
-    })
+    if (alwaysBlend) {
+      blendActive = true
+      navStatusEl.classList.add('is-blend')
+    } else {
+      ScrollTrigger.create({
+        trigger,
+        start: 'top top',
+        end: 'bottom top',
+        onEnter: () => { blendActive = true; navStatusEl.classList.add('is-blend') },
+        onEnterBack: () => { blendActive = true; navStatusEl.classList.add('is-blend') },
+        onLeaveBack: () => { blendActive = false; navStatusEl.classList.remove('is-blend') },
+      })
+    }
   }
 }
 
