@@ -3,6 +3,7 @@ import { BREAKPOINTS } from './utils/breakpoints.js'
 import { initHome } from './pages/home.js'
 import { initGlobal } from './global.js'
 import { initNav } from './nav.js'
+import { initBrandOverview } from './pages/brandOverview.js'
 ;(() => {
   // =============================================
   // GSAP SETUP
@@ -39,6 +40,7 @@ import { initNav } from './nav.js'
     if (!page) return
 
     if (page.classList.contains('is-home')) initHome()
+    if (page.classList.contains('is-brand-overview')) initBrandOverview()
 
     initGlobal()
     initNav()
