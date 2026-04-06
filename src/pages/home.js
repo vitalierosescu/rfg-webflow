@@ -120,38 +120,27 @@ const initHomeProjects = () => {
   const target = document.querySelector('.home--projects_title-inner')
   const trigger = document.querySelector('.home--projects_list-wrap')
   if (!trigger) return
-  const mm = gsap.matchMedia()
-  mm.add(MQ.tabletUp, () => {
-    const animateHero = () => {
-      const tl = gsap.timeline({
-        defaults: {
-          ease: 'none',
-        },
-        scrollTrigger: {
-          trigger: trigger,
-          start: 'clamp(top 80%)',
-          end: 'top top',
-          scrub: true,
-        },
-      })
 
-      tl.to(
-        target,
-        {
-          scale: 0.6,
-          ease: 'none',
-        },
-        0
-      )
-    }
+  const tl = gsap.timeline({
+    defaults: {
+      ease: 'none',
+    },
+    scrollTrigger: {
+      trigger: trigger,
+      start: 'clamp(top 80%)',
+      end: 'top top',
+      scrub: true,
+    },
+  })
 
-    animateHero()
-  })
-  // Remove animations on tablet and down
-  mm.add(MQ.tabletDown, () => {
-    gsap.set(target, { clearProps: 'all' })
-    ScrollTrigger.refresh()
-  })
+  tl.to(
+    target,
+    {
+      scale: 0.6,
+      ease: 'none',
+    },
+    0
+  )
 }
 
 export function initHome() {
